@@ -1,7 +1,7 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const InputField = ({ type, placeholder, icon }) => {
-  // State to toggle password visibility
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
   return (
@@ -11,18 +11,27 @@ const InputField = ({ type, placeholder, icon }) => {
         placeholder={placeholder}
         className="input-field"
         required
+        aria-label={placeholder}
       />
       <i className="material-symbols-rounded">{icon}</i>
       {type === "password" && (
         <i
           onClick={() => setIsPasswordShown((prevState) => !prevState)}
           className="material-symbols-rounded eye-icon"
+          role="button"
+          aria-label={isPasswordShown ? "Hide password" : "Show password"}
         >
           {isPasswordShown ? "visibility" : "visibility_off"}
         </i>
       )}
     </div>
   );
+};
+
+InputField.propTypes = {
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
 };
 
 export default InputField;
